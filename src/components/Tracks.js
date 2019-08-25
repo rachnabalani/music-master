@@ -1,19 +1,30 @@
 import React , { Component } from 'react';
 
 class Tracks extends Component {
-    state = { playing: false, audio: null };
+    state = { playing: false, audio: null, playingPreview: null };
 
     playAudio = preview_url => () => {
         
         const audio = new Audio(preview_url);
-
+    if(preview_url){
         if(!this.state.playing) {
             audio.play();
-            this.setState({ playing : true, audio});
+            this.setState({ playing : true, audio, playingPreview: preview_url});
         }else{
             this.state.audio.pause();
-            this.setState({ playing: false });
+            
+            if(this.state.playingPreview === preview_url){
+                this.setState({ playing: false });
+            }else{
+                audio.play();
+                this.setState({ audio, playingPreview: preview_url}); 
+            }
+
+            
         }
+    }else{
+        console.log('No preview for this track');
+    }
     }
 
     render() {
