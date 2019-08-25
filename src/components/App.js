@@ -13,7 +13,9 @@ class App extends Component {
         tracks: []
     };
 
-   
+   componentDidMount() {
+       this.searchArtist('Bruno Mars');
+   }
 
     searchArtist = artistQuery => {
        
